@@ -15,14 +15,13 @@ readStream
   .pipe(deleQuotTr)
   .pipe(csv())
   .on('headers', (headers) => {
-    //writeStream.write
-    writeStream.write(`product_id,style_id,name,sale_price,original_price,default?,photos,skus\n`)
+    writeStream.write(`product_id,style_id,name,sale_price,original_price,default?\n`)
   })
   .on('data', row => {
     if (Object.keys(row).length === 6) {
       let {id, productId,name,sale_price,original_price,default_style} = row
       if (default_style === undefined) default_style = 0;
-      writeStream.write(`${productId},${id},${name},${sale_price},${original_price},${default_style},[],{}\n`)
+      writeStream.write(`${productId},${id},${name},${sale_price},${original_price},${default_style}\n`)
     }
   })
   .on('end', ()=> console.log('<<----------- complete processing raw styles.csv data ----------->>'))

@@ -7,9 +7,9 @@ var writeStream = fs.createWriteStream("./processedCsvData/product.csv");
 readStream
   .pipe(csv())
   .on('headers', (headers) => {
-    writeStream.write(`product_id,results\n`)
+    writeStream.write(`product_id\n`)
   })
   .on('data', row => {
-    writeStream.write(`${row.id},[]\n`)
+    writeStream.write(`${row.id}\n`)
   })
   .on('end', ()=> console.log('<<----------- complete processing raw product.csv data ----------->>'))
